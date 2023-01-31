@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import "./App.css"; 
+import "./App.css";
 import { Header } from "./components/Header";
 import Footer from "./components/Footer";
 import Body from "./components/Body";
-import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import About from "./components/About";
 import Error from "./components/Error";
-import Contact from "./components/Contact";
+// import Contact from "./components/Contact";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Profile from "./components/Profile";
 // import Instamart from './components/Instamart'
-import { lazy,Suspense } from "react";
+import { lazy, Suspense } from "react";
+import Shimmer from "./components/Shimmer";
+import UserContext from "./components/Hooks/UserContext";
 /**
      Header
         - Logo(Title)
@@ -44,17 +46,29 @@ import { lazy,Suspense } from "react";
  * LAZY LOADING
  * ON DEMAND LOADING
  * DYNAMIC IMPORTING
- * 
+ *
  */
 
-const Instamart =lazy(import("./components/Instamart"))
+const Instamart = lazy(() => import("./components/Instamart"));
+const Contact = lazy(() => import("./components/Contact"));
 
 function App() {
+  const [user, setUser] = useState({
+    name: "Akshay Saini",
+    email: "support@namastedev.com",
+  });
   return (
     <div className="App">
-      <Header />
-      <Outlet/>
-      <Footer />
+      <UserContext.Provider
+        value={{
+          user:user,
+          setUser:setUser
+        }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
     </div>
   );
 }
@@ -66,23 +80,28 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path:"/",
-        element:<Body/>
+        path: "/",
+        element: <Body />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
         errorElement: <Error />,
-        children:[
+        children: [
           {
-            path:"profile",
-            element:<Profile/>
-          }
-        ]
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: (
+          <Suspense fallback={<h1>Loading...!!</h1>}>
+            {" "}
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: "/cart",
@@ -90,11 +109,15 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/instamart",
-        element:<Instamart/>,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
       },
       {
-        path:"/restaurant/:id",
-        element:<RestaurantMenu/>,
+        path: "/restaurant/:id",
+        element: <RestaurantMenu />,
       },
     ],
   },
@@ -104,3 +127,19 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
 
 export default App;
+
+/**
+ *
+ *
+ *
+ * PROPS DRILLING
+ *   App
+ *     (state=user)
+ *       - <Body user={user}/>
+ *         - <RestaurantContainer user ==>
+ *            - RestaurantCard user={user}
+ *               - <h4> {user} <h4/>
+ *
+ *
+ *
+ */

@@ -13,7 +13,9 @@ export const useOnline = () => {
     window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener();
+      window.removeEventListener(handleOnline,null);
+      window.removeEventListener(handleOffline,null);
+
     };
   }, []);
 

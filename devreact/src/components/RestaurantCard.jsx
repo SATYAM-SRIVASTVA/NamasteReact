@@ -1,5 +1,7 @@
 import { img_cdn } from "./Config";
 import "./RestaurantCard.css";
+import { useContext } from "react";
+import UserContext from "./Hooks/UserContext";
 export const RestaurantCard = ({
   name,
   cuisines,
@@ -7,6 +9,7 @@ export const RestaurantCard = ({
   lastMileTravelString,
   totalRatings,
 }) => {
+  const {user} = useContext(UserContext);
   return (
     <div className="card">
       <img src={img_cdn + cloudinaryImageId} alt="" />
@@ -17,6 +20,8 @@ export const RestaurantCard = ({
       <i className="fa fa-star" aria-hidden="true">
         {" " + totalRatings / 1000}
       </i>
+
+      <h5>{user.name}</h5>
     </div>
   );
 };

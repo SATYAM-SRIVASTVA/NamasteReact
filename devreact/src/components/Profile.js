@@ -1,5 +1,6 @@
 import "./Profile.css";
 import React from "react";
+import UserContext from "./Hooks/UserContext";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -47,6 +48,11 @@ class Profile extends React.Component {
         <h1>This is a profile page</h1>
         <h2>Name:{this.state.name}</h2>
         <h2>{this.state.location}</h2>
+        <UserContext.Consumer>
+          {(value)=>{
+             console.log(value)
+          }}
+        </UserContext.Consumer>
         {/* <img src={this.state.userInfo.avatar_url} alt="" /> */}
         
       </div>
