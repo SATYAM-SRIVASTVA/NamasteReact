@@ -54,8 +54,8 @@ const Contact = lazy(() => import("./components/Contact"));
 
 function App() {
   const [user, setUser] = useState({
-    name: "Akshay Saini",
-    email: "support@namastedev.com",
+    name: "Shivam",
+    email: "shivam@gmail.com",
   });
   return (
     <div className="App">

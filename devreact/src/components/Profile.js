@@ -50,7 +50,9 @@ class Profile extends React.Component {
         <h2>{this.state.location}</h2>
         <UserContext.Consumer>
           {(value)=>{
-             console.log(value)
+             console.log(value);
+             <h3>{value.name}-{value.email}</h3>
+             
           }}
         </UserContext.Consumer>
         {/* <img src={this.state.userInfo.avatar_url} alt="" /> */}
