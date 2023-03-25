@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import './Header.css'
 import Logo from '../Assets/Logo.jpg'
 import { useOnline } from "./Hooks/useOnline";
-
+import { useSelector } from "react-redux";
 
 // Composing Comopnentss
 export const Header = () => {
   const [isUser, setIsUser] = useState(false);
   const isOnline=useOnline();
+  const items=useSelector(store=>store.cart.items)
 
   return (
     <div className="header">
@@ -24,7 +25,7 @@ export const Header = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
+          <li><Link to="/cart">Cart-{items.length}</Link></li>
           <li><Link to="/instamart">Instamart</Link></li>
 
           {

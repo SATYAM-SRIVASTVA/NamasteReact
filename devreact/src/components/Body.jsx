@@ -67,9 +67,9 @@ const Body = () => {
           Search
         </button>
       </div>
-      <input value={user.name} onChange={e=>setUser({
+      {/* <input value={user.name} onChange={e=>setUser({
         name:e.target.value
-      })}></input>
+      })}></input> */}
       <div className="restaurant-list">
         {filteredRestaurants.map((restaurant) => {
           return (

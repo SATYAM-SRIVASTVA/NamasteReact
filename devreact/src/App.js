@@ -15,6 +15,9 @@ import Profile from "./components/Profile";
 import { lazy, Suspense } from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./components/Hooks/UserContext";
+import Store from "./Utils/Store";
+import { Provider } from "react-redux";
+
 /**
      Header
         - Logo(Title)
@@ -59,6 +62,7 @@ function App() {
   });
   return (
     <div className="App">
+      <Provider store={Store}>
       <UserContext.Provider
         value={{
           user:user,
@@ -69,6 +73,7 @@ function App() {
         <Outlet />
         <Footer />
       </UserContext.Provider>
+      </Provider>
     </div>
   );
 }

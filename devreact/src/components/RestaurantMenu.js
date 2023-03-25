@@ -25,7 +25,7 @@ const RestaurantMenu = () => {
           <h1>Menu</h1>
           <ol>
             {Object.values(restaurant?.menu?.items).map((item)=>{
-              return <li key={item?.id}>{item?.name}</li>
+              return <li key={item?.id}>{item?.name} <button>Add</button></li>
             })}
           </ol>
         </div>
@@ -33,3 +33,21 @@ const RestaurantMenu = () => {
   )
 };
 export default RestaurantMenu;
+
+
+// var promise=new Promise(function(resolve,reject){
+//   const x="satyam";
+//   const y="satyam";
+
+//   if(x===y){
+//     resolve();
+//   }else{
+//     reject();
+//   }
+// });
+
+// promise.then(function(){
+//   console.log('Success,Promise is resolved')
+// }).catch(function(){
+//   console.log('Some error has occured')
+// })
