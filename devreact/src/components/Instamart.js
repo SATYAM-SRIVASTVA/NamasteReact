@@ -34,7 +34,7 @@ const Instamart = () => {
   const {user}=useContext(UserContext);
   return (
     <>
-      <h1>Instamart</h1>
+      <h1 style={{margin:"20px 500px"}}>Instamart</h1>
       <Section
         title={"About Instamart"}
         description={
@@ -65,8 +65,8 @@ const Instamart = () => {
            setIsVisibleSection("Careers")
         }}
       />
-      <h1>{user.name}</h1>
-      <h1>{user.email}</h1>
+      {/* <h1>{user.name}</h1>
+      <h1>{user.email}</h1> */}
     </>
   );
 };
